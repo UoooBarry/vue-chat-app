@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/register", (req: Request, res: Response) => {
   const hashPassword = bcrypt.hashSync(req.body.password, 10);//hash the user password
-
+  console.log(req.body)
   User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -21,7 +21,8 @@ router.post("/register", (req: Request, res: Response) => {
         message: 'success'
       })
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err)
       res.sendStatus(400);
     })
 });
