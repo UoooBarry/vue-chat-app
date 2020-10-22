@@ -17,6 +17,7 @@ import ChatForm from "@/components/ChatForm";
 import Message from '@/components/Message'
 import io from "socket.io-client";
 import { reactive, onMounted } from "vue";
+import {useRoute} from 'vue-router';
 export default {
   name: "Room",
   components: {
@@ -26,10 +27,13 @@ export default {
   setup() {
     const { is_logged_in, user_token } = useUsers();
     const socket = io("http://localhost:3001/");
+    const route = useRoute();
+    const room_id = route.params.id;
     socket.on("connect", () => {
       socket
         .emit("authenticate", { token: user_token.value })
         .on("authenticated", () => {
+          socket.emit('joinRoom', room_id)
         })
         .on("unauthorized", (msg) => {
           throw new Error(msg.data.type);

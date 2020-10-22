@@ -37,8 +37,8 @@
           <router-link
             class="nav-link"
             :class="{ active: getActive('Room') }"
-            to="/Room/"
-            >Room</router-link
+            to="/rooms/"
+            >Rooms</router-link
           >
         </li>
          <li class="nav-item">

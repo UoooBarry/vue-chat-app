@@ -26,7 +26,7 @@ export default function useUsers() {
             .then((res) => {
                 state.user_token = res.data.token;
                 state.is_logged_in = true;
-                router.push({name: "Room"})
+                router.push({name: "JoinRoom"})
             })
             .catch(() => {
                 alert('Login failed')

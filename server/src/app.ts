@@ -3,6 +3,7 @@ import cors from 'cors';
 import './config/mongodb';
 import authenticationRouter from './routes/authentication';
 import io, {chatServer } from'./chat/chatIo';
+import roomRouter from './routes/room';
 
 const port: number = 3000;
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({
 }));
 
 app.use('/api/auth/', authenticationRouter);
+app.use('/api/room/', roomRouter);
 
 
 app.listen(port, () => {
