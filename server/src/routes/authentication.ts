@@ -41,6 +41,7 @@ router.post("/login", async (req: Request, res: Response) => {
       const token = generateAccessToken(user);
       res.json({
         message: 'success',
+        user_id: user._id,
         token: token
       })
     } else {

@@ -7,6 +7,7 @@ import router from '@/router'
 
 const state = reactive({
     user_token: null,
+    chat_user_id: '',
     is_logged_in: false
 });
 
@@ -25,6 +26,7 @@ export default function useUsers() {
         })
             .then((res) => {
                 state.user_token = res.data.token;
+                state.chat_user_id = res.data.user_id;
                 state.is_logged_in = true;
                 router.push({name: "JoinRoom"})
             })

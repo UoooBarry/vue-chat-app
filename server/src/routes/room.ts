@@ -28,4 +28,14 @@ router.get('/', (req: Request, res: Response) => {
     })
 })
 
+router.get('/:id', (req: Request, res: Response) => {
+  Room.findById(req.params.id).populate('currentUser','firstName').exec()
+    .then((room) => {
+      res.json({ room })
+    })
+    .catch(() => {
+      res.sendStatus(500)
+    })
+})
+
 export default router;

@@ -1,21 +1,13 @@
 <template>
-  <div>
-    <form @submit.prevent="sendMessage" class="form-inline">
-      <div class="form-group row">
-        <div class="col-sm-10">
-          <input
-            type="text"
-            name="msg"
-            class="form-control message-box"
-            v-model="state.msg"
-          />
+   <!-- Typing area -->
+      <form @submit.prevent="sendMessage" class="bg-light">
+        <div class="input-group">
+          <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light" v-model="state.msg" required>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-link"><i class="fa fa-paper-plane"></i></button>
+          </div>
         </div>
-        <div class="col-sm-2">
-          <input type="submit" value="send message" class="btn btn-dark" />
-        </div>
-      </div>
-    </form>
-  </div>
+      </form>
 </template>
 
 <script>
@@ -40,9 +32,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.message-box {
-  width: 100%;
-}
-</style>
