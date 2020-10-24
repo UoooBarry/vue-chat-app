@@ -12,7 +12,6 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const chatServer = http.createServer(app);
 const io = socketio.listen(chatServer);
-// const io = socketio(chatServer);
 
 // Run when client connected
 io.on('connection',
