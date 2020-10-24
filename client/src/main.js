@@ -22,6 +22,8 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-createApp(App)
-.use(router)
-.mount('#app')
+const app = createApp(App)
+app.use(router)
+app.mount('#app');
+
+app.provide('SERVER_URL', process.env.VUE_APP_SERVER_URL);

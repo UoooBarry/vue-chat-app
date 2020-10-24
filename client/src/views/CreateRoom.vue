@@ -24,13 +24,14 @@ import axios from 'axios';
 export default {
     name: 'CreateRoom',
     setup(){
+        const SERVER_URL =  process.env.VUE_APP_SERVER_URL;
         const roomName = '';
         const state = reactive({
             roomName
         });
 
         const createRoom = () => {
-            axios.post('http://localhost:3000/api/room/create', {
+            axios.post(`${SERVER_URL}/api/room/create`, {
                 roomName: state.roomName
             })
             .then(() => {

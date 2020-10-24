@@ -19,8 +19,9 @@ const userState = reactive({
 })
 
 export default function useUsers() {
+    const SERVER_URL =  process.env.VUE_APP_SERVER_URL;
     const login = () => {
-        axios.post('http://localhost:3000/api/auth/login', {
+        axios.post(`${SERVER_URL}/api/auth/login`, {
             username: userState.username,
             password: userState.password,
         })
@@ -37,7 +38,7 @@ export default function useUsers() {
     }
 
     const register = () => {
-        axios.post('http://localhost:3000/api/auth/register', {
+        axios.post(`${SERVER_URL}/api/auth/register`, {
                 username: userState.username,
                 password: userState.password,
                 firstName: userState.firstName,

@@ -2,7 +2,7 @@
   <div>
     <h1 style="text-align: center">Room list</h1>
     <table class="table">
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <th scope="col">#</th>
           <th scope="col">RoomName</th>
@@ -34,10 +34,11 @@ import axios from "axios";
 export default {
   name: "JoinRooms",
   setup() {
+    const SERVER_URL =  process.env.VUE_APP_SERVER_URL;
     const state = reactive({
       rooms: [],
     });
-    axios.get("http://localhost:3000/api/room/").then((res) => {
+    axios.get(`${SERVER_URL}/api/room/`).then((res) => {
       state.rooms = res.data.rooms;
     });
 

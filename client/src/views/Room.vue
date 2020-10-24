@@ -37,6 +37,7 @@ export default {
     UserPanel,
   },
   setup() {
+    const CHAT_URL =  process.env.VUE_APP_CHAT_URL;
     const route = useRoute();
     const room_id = route.params.id;
     const chat = reactive({
@@ -45,7 +46,7 @@ export default {
     });
 
     const { is_logged_in, user_token, chat_user_id } = useUsers();
-    const socket = io("http://localhost:3001/");
+    const socket = io(CHAT_URL);
 
     socket.on("connect", () => {
       socket
