@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container chat-container">
     <div class="rounded-lg shadow row">
       <div class="col-sm-4 px-0">
         <UserPanel
@@ -9,7 +9,7 @@
         />
       </div>
       <div class="col-sm-8 px-0">
-        <div class="chat-messages px-4 py-5 chat-box bg-white">
+        <div class="chat-messages px-4 py-5 chat-box bg-dark">
           <div v-for="(message, index) of chat.messages" v-bind:key="index">
             <Message :message="message" :sender="chat_user_id"/>
           </div>
@@ -88,7 +88,10 @@ export default {
 .chat-messages {
   height: 600px;
   background-color: rgb(241, 242, 243);
-  margin-top: 10px;
   overflow-y: scroll;
+}
+
+.chat-container{
+  margin-top: 15px;
 }
 </style>

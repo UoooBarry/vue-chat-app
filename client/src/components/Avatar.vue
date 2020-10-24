@@ -25,9 +25,12 @@ export default {
 
 <style lang='scss' scoped>
 .round-avatar {
+  position: relative;
+ top: -5px;
   width: 50px;
   height: 50px;
   padding: 1px;
+  margin: 5px ;
   background-color: orange;
 }
 .character a{

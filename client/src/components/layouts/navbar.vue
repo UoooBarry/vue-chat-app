@@ -18,8 +18,8 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :class="{ active: getActive('Home') }"
-            to="/#/"
+            :class="{ active: getActive('Register') }"
+            to="/register/"
             >Register</router-link
           >
         </li>
@@ -45,6 +45,7 @@
           <a href="#" class="nav-link" @click="logout">Log out</a>
         </li>
       </ul>
+      <router-link  class="btn btn-warning my-2 my-sm-0" to="/rooms/create/">Create a room</router-link>
     </div>
   </nav>
 </template>

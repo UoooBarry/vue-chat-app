@@ -22,7 +22,7 @@
         />
       </div>
       <br />
-      <button type="submit" class="btn btn-lg btn-block btn-dark">Login</button>
+      <button type="submit" class="btn btn-lg btn-block btn-primary">Login</button>
     </form>
   </div>
 </template>

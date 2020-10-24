@@ -1,61 +1,18 @@
 <template>
-  <div class="container">
-    <form @submit.prevent="register">
-      <div class="from-group">
-        <label for="username">Username: </label>
-        <input
-          type="text"
-          id="username"
-          v-model="userState.username"
-          class="form-control"
-        />
-      </div>
-      <div class="from-group">
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          v-model="userState.password"
-          class="form-control"
-        />
-      </div>
-      <div class="from-group">
-        <label for="password">First name: </label>
-        <input
-          type="text"
-          id="firstName"
-          v-model="userState.firstName"
-          class="form-control"
-        />
-      </div>
-      <div class="from-group">
-        <label for="password">Last name: </label>
-        <input
-          type="text"
-          id="lastName"
-          v-model="userState.lastName"
-          class="form-control"
-        />
-      </div>
-      <br />
-      <button type="submit" class="btn btn-lg btn-block btn-dark">
-        Submit
-      </button>
-    </form>
+  <div class='container'>
+    <div class="jumbotron">
+      <h1 class="display-3">Seed chat</h1>
+      <p class="lead">
+        This is a simple chat app which you can create different rooms, and group chat in it.
+      </p>
+      <hr class="my-4" />
+      <p>
+        Simple design, simple features.
+        Socket.io + Express.
+      </p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/register" role="button">Get an account</a>
+      </p>
+    </div>
   </div>
 </template>
-
-<script>
-import useUsers from "@/store/auth";
-export default {
-  name: "Home",
-  setup() {
-    const { register, userState } = useUsers();
-
-    return {
-      register,
-      userState,
-    };
-  },
-};
-</script>

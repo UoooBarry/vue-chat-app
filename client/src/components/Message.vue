@@ -5,7 +5,7 @@
       <Avatar :name="message.user" />
       <div class="media-body" >
         <div class="bg-light rounded py-2 px-3 mb-2">
-          <p class="text-small mb-0 text-muted">
+          <p class="text-small mb-0 text-white">
             {{ message.msg }}
           </p>
         </div>

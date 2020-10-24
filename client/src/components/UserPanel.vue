@@ -14,7 +14,7 @@
           <div class="media-body ml-4">
             <div class="d-flex align-items-center justify-content-between mb-1">
               <h6 class="mb-0">{{ user.firstName }}</h6>
-              <small class="small font-weight-bold">14 Dec</small>
+              <small class="small font-weight-bold">Online</small>
             </div>
           </div>
         </div>
