@@ -24,7 +24,6 @@ require('dotenv').config({ path: path_1.default.resolve(__dirname, '../../.env')
 const chatServer = http_1.default.createServer(app_1.default);
 exports.chatServer = chatServer;
 const io = socket_io_1.default.listen(chatServer);
-// const io = socketio(chatServer);
 // Run when client connected
 io.on('connection', socketio_jwt_1.default.authorize({
     secret: process.env.ACCESS_TOKEN_SECRET,

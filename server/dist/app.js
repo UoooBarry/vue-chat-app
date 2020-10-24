@@ -12,6 +12,12 @@ const room_1 = __importDefault(require("./routes/room"));
 const port = 3000;
 const app = express_1.default();
 app.use(cors_1.default());
+//ENABLE CORS
+app.all('/', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: false
