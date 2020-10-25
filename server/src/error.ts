@@ -9,6 +9,8 @@ const errorHandler = (error: any, req: Request, res: Response, next: NextFunctio
   res.json({
     message: error.message
   })
+
+  next();
 }
 
 export default errorHandler;

@@ -6,8 +6,8 @@ import socketioJwt, { ISocketCallback } from 'socketio-jwt';
 
 import path from "path";
 import Room, { IRoom } from '../models/room';
-import { Secret } from 'jsonwebtoken';
-import User from '../models/user';
+import { Types } from 'mongoose';
+
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const chatServer = http.createServer(app);
@@ -24,25 +24,30 @@ io.on('connection',
       const room = await Room.findById(room_id);
       if (!room || !room.currentUser) throw 'No room';
       const user_id = socket.decoded_token.user._id;
-      room?.currentUser?.push(user_id);
-      await room?.save();
-      socket.join(room_id);
+      if (!room.currentUser.includes(user_id)) {
+        room?.currentUser?.push(user_id);
+        await room?.save();
+
+      }
       //Broadcast when a user connect
       const joinMessage = new message('0', 'Chat bot', `${socket.decoded_token.user.firstName} has joined the chat`);
       socket.broadcast.to(room_id).emit('message', joinMessage);
       updateRoom(room_id);
+      socket.join(room_id);
 
       //Runs when client disconnected
       socket.on('disconnect', async () => {
         const leftMessage = new message('0', 'Chat bot', `${socket.decoded_token.user.firstName} has left the chat`);
         if (!room || !room.currentUser) throw 'No room';
-        const index = room.currentUser.findIndex((id) => id == user_id); //only compare the value not type
-        if (index !== -1) {
-          room.currentUser.splice(index, 1);
-          await room.save();
-          updateRoom(room_id);
-          socket.broadcast.to(room_id).emit('message', leftMessage);
-        }    
+
+        room.currentUser = room.currentUser.filter((id) => {
+          return id != user_id;
+        })
+
+        await room.save();
+
+        updateRoom(room_id);
+        socket.broadcast.to(room_id).emit('message', leftMessage);
       });
 
         // Listen for chat message

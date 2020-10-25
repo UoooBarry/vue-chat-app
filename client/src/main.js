@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import useUsers from '@/store/auth';
-import ErrorMessage from '@/component/layouts/ErrorMessage';
+import ErrorMessage from '@/components/layouts/ErrorMessage';
 
 const {is_logged_in} = useUsers();
 
