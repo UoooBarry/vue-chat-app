@@ -9,8 +9,10 @@ require("./config/mongodb");
 const authentication_1 = __importDefault(require("./routes/authentication"));
 const chatIo_1 = require("./chat/chatIo");
 const room_1 = __importDefault(require("./routes/room"));
+const error_1 = __importDefault(require("./error")); //Error handler
 const port = 3000;
 const app = express_1.default();
+app.use(error_1.default);
 app.use(cors_1.default());
 //ENABLE CORS
 app.all('/', (req, res, next) => {

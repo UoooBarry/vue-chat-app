@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import useUsers from '@/store/auth';
+import ErrorMessage from '@/component/layouts/ErrorMessage';
 
 const {is_logged_in} = useUsers();
 
@@ -22,8 +23,11 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-const app = createApp(App)
-app.use(router)
+const app = createApp(App);
+app.use(router);
+app.component('ErrorMessage', ErrorMessage); //register component
 app.mount('#app');
+
+
 
 app.provide('SERVER_URL', process.env.VUE_APP_SERVER_URL);

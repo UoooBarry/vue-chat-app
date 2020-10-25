@@ -28,26 +28,30 @@ router.post("/register", (req: Request, res: Response) => {
 });
 
 
-router.post("/login", async (req: Request, res: Response) => {
-  const user = await User.findOne({
-    'login.username': req.body.username
-  })
-  if (!user) {
-    res.sendStatus(404);
-    throw 'No user found';
-  }
-  bcrypt.compare(req.body.password, user.login.password, (err, result) => {
-    if (result && !err) {//if password correct
-      const token = generateAccessToken(user);
-      res.json({
-        message: 'success',
-        user_id: user._id,
-        token: token
-      })
-    } else {
-      res.sendStatus(404);
+router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await User.findOne({
+      'login.username': req.body.username
+    })
+    if (!user) {
+      throw new Error('No user found');
     }
-  })
+    bcrypt.compare(req.body.password, user.login.password, (err, result) => {
+      if (result && !err) {//if password correct
+        const token = generateAccessToken(user);
+        res.json({
+          message: 'success',
+          user_id: user._id,
+          token: token
+        })
+      } else {
+        throw new Error('Password incorrect');
+      }
+    })
+  } catch (error) {
+    next(error);
+  }
+
 })
 
 

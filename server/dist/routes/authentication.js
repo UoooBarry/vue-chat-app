@@ -38,26 +38,31 @@ router.post("/register", (req, res) => {
         res.sendStatus(400);
     });
 });
-router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_1.default.findOne({
-        'login.username': req.body.username
-    });
-    if (!user) {
-        res.sendStatus(404);
-        throw 'No user found';
-    }
-    bcrypt_1.default.compare(req.body.password, user.login.password, (err, result) => {
-        if (result && !err) { //if password correct
-            const token = userAuth_1.generateAccessToken(user);
-            res.json({
-                message: 'success',
-                user_id: user._id,
-                token: token
-            });
-        }
-        else {
+router.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_1.default.findOne({
+            'login.username': req.body.username
+        });
+        if (!user) {
             res.sendStatus(404);
+            throw 'No user found';
         }
-    });
+        bcrypt_1.default.compare(req.body.password, user.login.password, (err, result) => {
+            if (result && !err) { //if password correct
+                const token = userAuth_1.generateAccessToken(user);
+                res.json({
+                    message: 'success',
+                    user_id: user._id,
+                    token: token
+                });
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    }
+    catch (error) {
+        next(error);
+    }
 }));
 exports.default = router;
