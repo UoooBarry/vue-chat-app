@@ -44,8 +44,7 @@ router.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, func
             'login.username': req.body.username
         });
         if (!user) {
-            res.sendStatus(404);
-            throw 'No user found';
+            throw new Error('No user found');
         }
         bcrypt_1.default.compare(req.body.password, user.login.password, (err, result) => {
             if (result && !err) { //if password correct
@@ -57,7 +56,7 @@ router.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 });
             }
             else {
-                res.sendStatus(404);
+                throw new Error('Password incorrect');
             }
         });
     }

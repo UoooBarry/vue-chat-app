@@ -10,5 +10,6 @@ const errorHandler = (error, req, res, next) => {
     res.json({
         message: error.message
     });
+    next();
 };
 exports.default = errorHandler;

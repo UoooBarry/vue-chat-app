@@ -36,25 +36,26 @@ io.on('connection', socketio_jwt_1.default.authorize({
         if (!room || !room.currentUser)
             throw 'No room';
         const user_id = socket.decoded_token.user._id;
-        (_a = room === null || room === void 0 ? void 0 : room.currentUser) === null || _a === void 0 ? void 0 : _a.push(user_id);
-        yield (room === null || room === void 0 ? void 0 : room.save());
-        socket.join(room_id);
+        if (!room.currentUser.includes(user_id)) {
+            (_a = room === null || room === void 0 ? void 0 : room.currentUser) === null || _a === void 0 ? void 0 : _a.push(user_id);
+            yield (room === null || room === void 0 ? void 0 : room.save());
+        }
         //Broadcast when a user connect
         const joinMessage = new message_1.default('0', 'Chat bot', `${socket.decoded_token.user.firstName} has joined the chat`);
         socket.broadcast.to(room_id).emit('message', joinMessage);
         updateRoom(room_id);
+        socket.join(room_id);
         //Runs when client disconnected
         socket.on('disconnect', () => __awaiter(void 0, void 0, void 0, function* () {
             const leftMessage = new message_1.default('0', 'Chat bot', `${socket.decoded_token.user.firstName} has left the chat`);
             if (!room || !room.currentUser)
                 throw 'No room';
-            const index = room.currentUser.findIndex((id) => id == user_id); //only compare the value not type
-            if (index !== -1) {
-                room.currentUser.splice(index, 1);
-                yield room.save();
-                updateRoom(room_id);
-                socket.broadcast.to(room_id).emit('message', leftMessage);
-            }
+            room.currentUser = room.currentUser.filter((id) => {
+                return id != user_id;
+            });
+            yield room.save();
+            updateRoom(room_id);
+            socket.broadcast.to(room_id).emit('message', leftMessage);
         }));
         // Listen for chat message
         socket.on("chatMessage", (msg) => {
