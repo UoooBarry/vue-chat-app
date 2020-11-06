@@ -56,6 +56,7 @@ export default function useUsers() {
     const logout = () => {
         state.is_logged_in = false;
         state.user_token = null;
+        sessionStorage.removeItem('auth');
         router.push({name: "Login"})
     }
 
