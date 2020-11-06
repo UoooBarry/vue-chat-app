@@ -45,7 +45,7 @@
           <a href="#" class="nav-link" @click="logout">Log out</a>
         </li>
       </ul>
-      <router-link  class="btn btn-warning my-2 my-sm-0" to="/rooms/create/">Create a room</router-link>
+      <router-link v-if="is_logged_in" class="btn btn-warning my-2 my-sm-0" to="/rooms/create/">Create a room</router-link>
     </div>
   </nav>
 </template>

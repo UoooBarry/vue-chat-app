@@ -6,9 +6,9 @@ import axios from 'axios';
 import router from '@/router'
 
 const state = reactive({
-    user_token: null,
+    user_token: sessionStorage.getItem('auth') | null,
     chat_user_id: '',
-    is_logged_in: false
+    is_logged_in: sessionStorage.getItem('auth')? true : false //if get a defined token
 });
 
 const userState = reactive({
@@ -29,7 +29,8 @@ export default function useUsers() {
                 state.user_token = res.data.token;
                 state.chat_user_id = res.data.user_id;
                 state.is_logged_in = true;
-                router.push({name: "JoinRoom"})
+                sessionStorage.setItem('auth', state.user_token);
+                router.push({name: "JoinRoom"});
             })
             .catch(() => {
                 alert('Login failed')
